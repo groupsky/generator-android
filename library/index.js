@@ -80,7 +80,7 @@ LibraryGenerator.prototype.configTemplate = function configTemplate() {
 
 LibraryGenerator.prototype.app = function app() {
 	this.mkdir(this.projectName);
-	this.mkdir(this.projectName+'/src/'+this.packagePath+'/ui');
+	this.mkdir(this.projectName+'/src/'+this.packagePath);
 
 	this.mkdir(this.projectName+'/libs');
 	this.mkdir(this.projectName+'/libs-src');
