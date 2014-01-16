@@ -51,13 +51,6 @@ AndroidGenerator.prototype.askFor = function askFor() {
     default: 'My Awesome Application'
   },
   {
-    name: 'projectName',
-    message: 'How do you want to call your project?',
-    default: function(props) {
-      return props.applicationName.replace(/ /g,'');
-    }
-  },
-  {
     name: 'packageName',
     message: 'What is the package name?',
     default: 'com.awesome.app'
@@ -67,24 +60,7 @@ AndroidGenerator.prototype.askFor = function askFor() {
     message: 'Minimum required SDK:',
     type: 'list',
     choices: androidSDKversions,
-    default: 8
-  },
-  {
-    name: 'targetApiLevel',
-    message: 'Target SDK:',
-    type: 'list',
-    choices: androidSDKversions,
-    default: androidSDKversions.length-1
-  },
-  {
-    name: 'compileApiLevel',
-    message: 'Compile with:',
-    type: 'list',
-    choices: androidSDKversions,
-    default: function(props) {
-      console.log("props = "+JSON.stringify(props));
-      return props.targetApiLevel;
-    }
+    default: 9
   }];
 
   this.prompt(prompts, function (props) {
@@ -94,15 +70,23 @@ AndroidGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-AndroidGenerator.prototype.app = function app() {
-  this.mkdir('app');
-  this.mkdir('app/templates');
-
-  this.copy('_package.json', 'package.json');
-  this.copy('_bower.json', 'bower.json');
+AndroidGenerator.prototype.configTemplate = function configTemplate() {
+  this._.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
 };
 
-AndroidGenerator.prototype.projectfiles = function projectfiles() {
-  this.copy('editorconfig', '.editorconfig');
-  this.copy('jshintrc', '.jshintrc');
+AndroidGenerator.prototype.app = function app() {
+  this.mkdir('assets');
+  this.mkdir('libs');
+  this.mkdir('src/'+this.props.packageName.replace(/\./g, '/')+'/ui');
+  this.mkdir('src-gen');
+  this.mkdir('res');
+
+  this.template('AndroidManifest.xml', 'AndroidManifest.xml');
+  this.template('proguard-project.txt', 'proguard-project.txt');
+  this.template('project.properties', 'project.properties');
+};
+
+AndroidGenerator.prototype.antprojectfiles = function antprojectfiles() {
+  this.template('build.xml', 'build.xml');
+  this.template('custom_rules.xml', 'custom_rules.xml');
 };

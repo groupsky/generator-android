@@ -1,0 +1,63 @@
+# Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
+
+
+# dex crashes if larger than 2
+-optimizationpasses 2
+
+
+# To remove debug logs:
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** w(...);
+}
+
+-assumenosideeffects class java.lang.String {
+	public static *** format(...);
+}
+
+
+# ReTrace deobfuscation
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+
+
+
+
+
+# Testflight configuration
+-dontwarn javassist.**
+-dontwarn javax.tools.**
+-dontwarn org.json.simple.parser.*
+-keep class org.msgpack.template.builder.** { *; }
+
+
+
+# Mechanoid configuration
+-keepclassmembers class * extends com.robotoworks.mechanoid.ops.OperationService {
+    public static <fields>;
+}
+
+
+
+# Facebook configuration
+-keepattributes Signature
+-keep class com.facebook.** {
+   *;
+}
+-keepclassmembernames class * extends com.facebook.model.GraphObject
+
+
+
+
+# New Relic configuration
+-keep public class com.newrelic.** {
+  public *;
+  private *;
+}
+
+
+
+# Joda Time configuration
+-dontwarn org.joda.convert.**
+
