@@ -3,27 +3,27 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var androidSDKversions = [
-    'API 1',
-    'API 2',
-    'API 3',
-    'API 4',
-    'API 5',
-    'API 6',
-    'API 7',
-    'API 8: Android 2.2 (Froyo)', 
-    'API 9: Android 2.3 (Gingerbread)', 
-    'API 10: Android 2.3.3 (Gingerbread)', 
-    'API 11',
-    'API 12',
-    'API 13',
-    'API 14: Android 4.0 (Ice Cream Sandwich)', 
-    'API 15: Android 4.0.3 (Ice Cream Sandwich)',
-    'API 16: Android 4.1 (Jelly Bean)',
-    'API 17: Android 4.2 (Jelly Bean)',
-    'API 18: Android 4.3 (Jelly Bean)',
-    'API 19: Android 4.4.2 (KitKat'].map(function(name, value) {
-      return {name: name, value: value};
-    });
+'API 1',
+'API 2',
+'API 3',
+'API 4',
+'API 5',
+'API 6',
+'API 7',
+'API 8: Android 2.2 (Froyo)', 
+'API 9: Android 2.3 (Gingerbread)', 
+'API 10: Android 2.3.3 (Gingerbread)', 
+'API 11',
+'API 12',
+'API 13',
+'API 14: Android 4.0 (Ice Cream Sandwich)', 
+'API 15: Android 4.0.3 (Ice Cream Sandwich)',
+'API 16: Android 4.1 (Jelly Bean)',
+'API 17: Android 4.2 (Jelly Bean)',
+'API 18: Android 4.3 (Jelly Bean)',
+'API 19: Android 4.4.2 (KitKat'].map(function(name, value) {
+  return {name: name, value: value};
+});
 
 
 var AndroidGenerator = module.exports = function AndroidGenerator(args, options, config) {
@@ -90,15 +90,15 @@ AndroidGenerator.prototype.app = function app() {
   this.directory('res', 'res');
 
   this.template('AndroidManifest.xml', 'AndroidManifest.xml');
-  this.template('proguard-project.txt', 'proguard-project.txt');
+  this.template('../../templates/common/proguard-project.txt', 'proguard-project.txt');
   this.template('project.properties', 'project.properties');
   this.template('src/_Application.java', 'src/'+this.packagePath+'/'+this.className+'Application.java');
 };
 
 AndroidGenerator.prototype.androidsupportv4 = function androidsupportv4() {
-  this.copy('libs/android-support-v4.jar', 'libs/android-support-v4.jar');
-  this.copy('libs/android-support-v4.jar.properties', 'libs/android-support-v4.jar.properties');
-  this.directory('libs-src/android-support-v4', 'libs-src/android-support-v4');
+  this.copy('../../templates/common/libs/android-support-v4.jar', 'libs/android-support-v4.jar');
+  this.copy('../../templates/common/libs/android-support-v4.jar.properties', 'libs/android-support-v4.jar.properties');
+  this.directory('../../templates/common/libs-src/android-support-v4', 'libs-src/android-support-v4');
 }
 
 AndroidGenerator.prototype.universalimageloader = function universalimageloader() {
@@ -131,10 +131,11 @@ AndroidGenerator.prototype.mechdb = function mechdb() {
 
 AndroidGenerator.prototype.antprojectfiles = function antprojectfiles() {
   this.template('build.xml', 'build.xml');
-  this.template('custom_rules.xml', 'custom_rules.xml');
+  this.template('../../templates/common/custom_rules.xml', 'custom_rules.xml');
 };
 
 AndroidGenerator.prototype.eclipseprojectfiles = function eclipseprojectfiles() {
   this.template('.classpath', '.classpath');
   this.template('.project', '.project');
+  this.directory('../../templates/common/.settings', '.settings');
 }

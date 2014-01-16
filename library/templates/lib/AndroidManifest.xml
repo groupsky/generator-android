@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %> -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="<%= packageName %>"
+        android:versionCode="1"
+        android:versionName="0.1-SNAPSHOT">
+
+        <uses-sdk
+                android:minSdkVersion="<%= minimumApiLevel%>"
+                android:targetSdkVersion="19"/>
+
+        <application allowBackup="true"/>
+
+</manifest>
