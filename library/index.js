@@ -107,3 +107,8 @@ LibraryGenerator.prototype.eclipseprojectfiles = function eclipseprojectfiles() 
 	this.template('lib/.project', this.projectName+'/.project');
 	this.directory('../../templates/common/.settings', this.projectName+'/.settings');
 }
+
+LibraryGenerator.prototype.gradlefiles = function gradlefiles() {
+	this.template('settings.gradle', 'settings.gradle');
+	this.template('lib/build.gradle', this.projectName+'/build.gradle');
+}

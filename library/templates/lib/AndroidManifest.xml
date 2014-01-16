@@ -9,6 +9,6 @@
                 android:minSdkVersion="<%= minimumApiLevel%>"
                 android:targetSdkVersion="19"/>
 
-        <application allowBackup="true"/>
+        <application android:allowBackup="true"/>
 
 </manifest>
