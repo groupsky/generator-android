@@ -45,7 +45,9 @@
 -keep class com.facebook.** {
    *;
 }
--keepclassmembernames class * extends com.facebook.model.GraphObject
+-keepclassmembernames class * extends com.facebook.model.GraphObject {
+	*;
+}
 
 
 

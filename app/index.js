@@ -64,7 +64,12 @@ AndroidGenerator.prototype.askFor = function askFor() {
   }];
 
   this.prompt(prompts, function (props) {
-    this.props = props;
+    this.applicationName = props.applicationName;
+    this.packageName = props.packageName;
+    this.minimumApiLevel = props.minimumApiLevel;
+    this.projectName = this._.camelize(this._.slugify(this._.humanize(props.applicationName.replace(/ /g, ''))));
+    this.packagePath = props.packageName.replace(/\./g, '/');
+    this.className = this._.classify(this.projectName);
 
     cb();
   }.bind(this));
@@ -77,16 +82,23 @@ AndroidGenerator.prototype.configTemplate = function configTemplate() {
 AndroidGenerator.prototype.app = function app() {
   this.mkdir('assets');
   this.mkdir('libs');
-  this.mkdir('src/'+this.props.packageName.replace(/\./g, '/')+'/ui');
+  this.mkdir('src/'+this.packagePath+'/ui');
   this.mkdir('src-gen');
-  this.mkdir('res');
+  
+  this.directory('res', 'res');
 
   this.template('AndroidManifest.xml', 'AndroidManifest.xml');
   this.template('proguard-project.txt', 'proguard-project.txt');
   this.template('project.properties', 'project.properties');
+  this.template('src/_Application.java', 'src/'+this.packagePath+"/"+this.className);
 };
 
 AndroidGenerator.prototype.antprojectfiles = function antprojectfiles() {
   this.template('build.xml', 'build.xml');
   this.template('custom_rules.xml', 'custom_rules.xml');
 };
+
+AndroidGenerator.prototype.eclipseprojectfiles = function eclipseprojectfiles() {
+  this.template('.classpath', '.classpath');
+  this.template('.project', '.project');
+}
