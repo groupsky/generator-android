@@ -30,7 +30,7 @@ var AndroidGenerator = module.exports = function AndroidGenerator(args, options,
   yeoman.generators.Base.apply(this, arguments);
 
   this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
+    this.log("You're all setup. Fire up your favourite IDE and build that great app!");
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -48,7 +48,7 @@ AndroidGenerator.prototype.askFor = function askFor() {
   {
     name: 'applicationName',
     message: 'What is the name of your application?',
-    default: 'My Application'
+    default: 'My Awesome Application'
   },
   {
     name: 'projectName',
@@ -60,7 +60,7 @@ AndroidGenerator.prototype.askFor = function askFor() {
   {
     name: 'packageName',
     message: 'What is the package name?',
-    default: 'com.example.app'
+    default: 'com.awesome.app'
   },
   {
     name: 'minimumApiLevel',
