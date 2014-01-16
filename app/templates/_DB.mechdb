@@ -1,0 +1,9 @@
+// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
+package <%= packageName %>.content
+
+database <%= className %>DB {
+
+	migration {
+		
+	}
+}
