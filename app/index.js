@@ -48,12 +48,12 @@ AndroidGenerator.prototype.askFor = function askFor() {
   {
     name: 'applicationName',
     message: 'What is the name of your application?',
-    default: 'My Awesome Application'
+    default: 'My Awesomeness'
   },
   {
     name: 'packageName',
     message: 'What is the package name?',
-    default: 'com.awesome.app'
+    default: 'com.awesomeness.app'
   },
   {
     name: 'minimumApiLevel',
@@ -67,9 +67,9 @@ AndroidGenerator.prototype.askFor = function askFor() {
     this.applicationName = props.applicationName;
     this.packageName = props.packageName;
     this.minimumApiLevel = props.minimumApiLevel;
-    this.projectName = this._.camelize(this._.slugify(this._.humanize(props.applicationName.replace(/ /g, ''))));
     this.packagePath = props.packageName.replace(/\./g, '/');
-    this.className = this._.classify(this.projectName);
+    this.className = this._.classify(this._.slugify(this._.humanize(props.applicationName.replace(/ /g, ''))));
+    this.projectName = this._.camelize(this.className);
 
     cb();
   }.bind(this));
@@ -81,17 +81,53 @@ AndroidGenerator.prototype.configTemplate = function configTemplate() {
 
 AndroidGenerator.prototype.app = function app() {
   this.mkdir('assets');
-  this.mkdir('libs');
   this.mkdir('src/'+this.packagePath+'/ui');
   this.mkdir('src-gen');
   
+  this.mkdir('libs');
+  this.mkdir('libs-src');
+
   this.directory('res', 'res');
 
   this.template('AndroidManifest.xml', 'AndroidManifest.xml');
   this.template('proguard-project.txt', 'proguard-project.txt');
   this.template('project.properties', 'project.properties');
-  this.template('src/_Application.java', 'src/'+this.packagePath+"/"+this.className);
+  this.template('src/_Application.java', 'src/'+this.packagePath+'/'+this.className+'Application.java');
 };
+
+AndroidGenerator.prototype.androidsupportv4 = function androidsupportv4() {
+  this.copy('libs/android-support-v4.jar', 'libs/android-support-v4.jar');
+  this.copy('libs/android-support-v4.jar.properties', 'libs/android-support-v4.jar.properties');
+  this.directory('libs-src/android-support-v4', 'libs-src/android-support-v4');
+}
+
+AndroidGenerator.prototype.universalimageloader = function universalimageloader() {
+  var cblib = this.async();
+  this.fetch('https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/downloads/universal-image-loader-1.9.1.jar', 'libs', function (err) {
+    cblib(err);
+  });
+  var cbsrc = this.async();
+  this.fetch('https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/downloads/universal-image-loader-1.9.1-sources.jar', 'libs-src', function (err) {
+    cbsrc(err);
+  });
+  this.write('libs/universal-image-loader-1.9.1.jar.properties', 'src=../libs-src/universal-image-loader-1.9.1-sources.jar');
+}
+
+AndroidGenerator.prototype.mechanoid = function mechanoid() {
+  var cblib = this.async();
+  this.fetch('http://www.robotoworks.com/mechanoid/updates/snapshot/mechanoid.jar', 'libs', function(err){
+    cblib(err);
+  });
+  var cbsrc = this.async();
+  this.fetch('http://www.robotoworks.com/mechanoid/updates/snapshot/mechanoid-sources.jar', 'libs-src', function(err){
+    cbsrc(err);
+  });
+  this.write('libs/mechanoid.jar.properties', 'src=../libs-src/mechanoid-sources.jar');
+}
+
+AndroidGenerator.prototype.mechdb = function mechdb() {
+  this.template('_DB.mechdb', this.className+"DB.mechdb");
+}
 
 AndroidGenerator.prototype.antprojectfiles = function antprojectfiles() {
   this.template('build.xml', 'build.xml');
