@@ -1,9 +1,11 @@
 {
   "name": "generator-android",
-  "version": "0.0.0",
-  "description": "A generator for Yeoman",
+  "version": "0.1.0",
+  "description": "Yeoman generator for Android",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "android",
+    "scaffold"
   ],
   "homepage": "https://github.com/groupsky/generator-android",
   "bugs": "https://github.com/groupsky/generator-android/issues",

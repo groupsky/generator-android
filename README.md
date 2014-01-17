@@ -1,6 +1,6 @@
 # generator-android [![Build Status](https://secure.travis-ci.org/groupsky/generator-android.png?branch=master)](https://travis-ci.org/groupsky/generator-android)
 
-A generator for [Yeoman](http://yeoman.io).
+[Yeoman](http://yeoman.io) generator for Android.
 
 
 ## Getting Started
