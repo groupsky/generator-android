@@ -111,4 +111,56 @@ LibraryGenerator.prototype.eclipseprojectfiles = function eclipseprojectfiles() 
 LibraryGenerator.prototype.gradlefiles = function gradlefiles() {
 	this.template('settings.gradle', 'settings.gradle');
 	this.template('lib/build.gradle', this.projectName+'/build.gradle');
+  this.directory('../../templates/buildSrc', 'buildSrc');
+}
+
+LibraryGenerator.prototype.testproject = function testproject() {
+  this.mkdir(this.projectName+"Test");
+  this.directory('test/src', this.projectName+"Test/src");
+}
+
+LibraryGenerator.prototype.eclipsetestprojectfiles = function eclipsetestprojectfiles() {
+  this.template('test/.classpath', this.projectName+'Test/.classpath');
+  this.template('test/.project', this.projectName+'Test/.project');
+  this.directory('../../templates/common/.settings', this.projectName+'Test/.settings');
+}
+
+LibraryGenerator.prototype.android = function android() {
+  this.copy('../../templates/common/libs/android-19.jar', this.projectName+'Test/libs/android.jar');
+}
+
+LibraryGenerator.prototype.mockito = function mockito() {
+  var cblib = this.async();
+  this.fetch('http://repo1.maven.org/maven2/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar', this.projectName+'Test/libs', function (err) {
+    cblib(err);
+  });
+  var cbsrc = this.async();
+  this.fetch('http://repo1.maven.org/maven2/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5-sources.jar', this.projectName+'Test/libs-src', function (err) {
+    cbsrc(err);
+  });
+  this.write('libs/mockito-all-1.9.5.jar.properties', 'src=../libs-src/mockito-all-1.9.5-sources.jar');
+}
+
+LibraryGenerator.prototype.robolectric = function robolectric() {
+  var cblib = this.async();
+  this.fetch('http://repo1.maven.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2.jar', this.projectName+'Test/libs', function (err) {
+    cblib(err);
+  });
+  var cbsrc = this.async();
+  this.fetch('http://repo1.maven.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2-sources.jar', this.projectName+'Test/libs-src', function (err) {
+    cbsrc(err);
+  });
+  this.write('libs/robolectric-2.2.jar.properties', 'src=../libs-src/robolectric-2.2-sources.jar');
+}
+
+LibraryGenerator.prototype.festandroid = function festandroid() {
+  var cblib = this.async();
+  this.fetch('http://repo1.maven.org/maven2/com/squareup/fest-android/1.0.7/fest-android-1.0.7.jar', this.projectName+'Test/libs', function (err) {
+    cblib(err);
+  });
+  var cbsrc = this.async();
+  this.fetch('http://repo1.maven.org/maven2/com/squareup/fest-android/1.0.7/fest-android-1.0.7-sources.jar', this.projectName+'Test/libs-src', function (err) {
+    cbsrc(err);
+  });
+  this.write('libs/fest-android-1.0.7.jar.properties', 'src=../libs-src/fest-android-1.0.7-sources.jar');
 }

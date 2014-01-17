@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %> -->
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/android.jar"/>
+	<classpathentry kind="lib" path="libs/robolectric-2.2.jar" sourcepath="libs-src/robolectric-2.2-sources.jar"/>
+	<classpathentry kind="lib" path="libs/mockito-all-1.9.5.jar" sourcepath="libs-src/mockito-all-1.9.5-sources.jar"/>
+	<classpathentry kind="lib" path="libs/fest-android-1.0.7.jar" sourcepath="libs-src/fest-android-1.0.7-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/<%= projectName %>"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
