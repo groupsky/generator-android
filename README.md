@@ -46,3 +46,5 @@ If you'd like to get to know Yeoman better and meet some of his friends, [Grunt]
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+
+[![Analytics](https://ga-beacon.appspot.com/UA-47297746-1/generator-android/readme)](https://github.com/igrigorik/ga-beacon)
