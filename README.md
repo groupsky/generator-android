@@ -1,7 +1,10 @@
-[![Stories in Ready](https://badge.waffle.io/groupsky/generator-android.png?label=ready)](https://waffle.io/groupsky/generator-android)
-# generator-android [![Build Status](https://secure.travis-ci.org/groupsky/generator-android.png?branch=master)](https://travis-ci.org/groupsky/generator-android)
+# generator-android 
 
 [Yeoman](http://yeoman.io) generator for Android.
+
+* [![Build Status](https://secure.travis-ci.org/groupsky/generator-android.png?branch=master)](https://travis-ci.org/groupsky/generator-android)
+* [![Dependency Status](https://david-dm.org/groupsky/generator-android.png)](https://david-dm.org/groupsky/generator-android)
+* [![Stories in Ready](https://badge.waffle.io/groupsky/generator-android.png?label=ready)](https://waffle.io/groupsky/generator-android)
 
 
 ## Getting Started
