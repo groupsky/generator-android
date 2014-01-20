@@ -139,3 +139,7 @@ AndroidGenerator.prototype.eclipseprojectfiles = function eclipseprojectfiles() 
   this.template('.project', '.project');
   this.directory('../../templates/common/.settings', '.settings');
 }
+
+AndroidGenerator.prototype.gitfiles = function gitfiles() {
+  this.template('../../templates/common/gitignore', '.gitignore');
+}

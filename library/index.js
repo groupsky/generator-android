@@ -164,3 +164,7 @@ LibraryGenerator.prototype.festandroid = function festandroid() {
   });
   this.write('libs/fest-android-1.0.7.jar.properties', 'src=../libs-src/fest-android-1.0.7-sources.jar');
 }
+
+AndroidGenerator.prototype.gitfiles = function gitfiles() {
+  this.template('../../templates/common/gitignore', '.gitignore');
+}
