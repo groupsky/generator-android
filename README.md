@@ -56,7 +56,7 @@ The following libraries are included by default:
 * [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * and more (just ask [for](https://github.com/groupsky/generator-android/issues/new))
 
-**Note: this will change in future version to create several subdirectories where the Android application and test project will be created
+**Note: this will change in future version to create several subdirectories where the Android application and test project will be created**
 
 ### Library
 
