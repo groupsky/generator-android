@@ -143,7 +143,7 @@ LibraryGenerator.prototype.mockito = function mockito() {
 
 LibraryGenerator.prototype.robolectric = function robolectric() {
   var cblib = this.async();
-  this.fetch('http://repo1.maven.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2.jar', this.projectName+'Test/libs', function (err) {
+  this.fetch('http://repo1.maven.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2-jar-with-dependencies.jar', this.projectName+'Test/libs', function (err) {
     cblib(err);
   });
   var cbsrc = this.async();
@@ -165,6 +165,6 @@ LibraryGenerator.prototype.festandroid = function festandroid() {
   this.write('libs/fest-android-1.0.7.jar.properties', 'src=../libs-src/fest-android-1.0.7-sources.jar');
 }
 
-AndroidGenerator.prototype.gitfiles = function gitfiles() {
+LibraryGenerator.prototype.gitfiles = function gitfiles() {
   this.template('../../templates/common/gitignore', '.gitignore');
 }
