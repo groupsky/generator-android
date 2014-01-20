@@ -9,13 +9,7 @@
 
 ## Getting Started
 
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
+### Invite Yeoman
 
 Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
 
@@ -23,14 +17,18 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
-### Yeoman Generators
+### Android Generator
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-android from npm, run:
+Install `generator-android`:
 
 ```
-$ npm install -g generator-android
+npm install -g generator-android
+```
+
+Make a new directory and `cd` into it:
+
+```
+mkdir my-shiny-project && cd $_
 ```
 
 Finally, initiate the generator:
@@ -39,12 +37,42 @@ Finally, initiate the generator:
 $ yo android
 ```
 
-### Getting To Know Yeoman
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+## Generators
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+Available generators:
 
+* [android](#app) (aka [android:app](#app))
+* [android:library](#library)
+
+**Note: Generators are to be run from the root directory of your project.**
+
+### App
+
+Sets up a new Android application project in the current directory. Project is configured to build with Eclipse and ant, soon it will include gradle (#2).
+The following libraries are included by default:
+* android-support-v4
+* [Mechanoid](http://robotoworks.com/mechanoid/doc)
+* [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
+* and more (just ask [for](https://github.com/groupsky/generator-android/issues/new))
+
+**Note: this will change in future version to create several subdirectories where the Android application and test project will be created
+
+### Library
+
+Sets up a new Android library in the current directory. The generator creates a subdirectory where the library source lives in and another subdirectory for test project.
+Build environments that are included:
+* Ant
+* Eclipse
+* Gradle
+
+There are no runtime libraries included, only test libraries:
+* [jUnit 4.10](http://junit.org/)
+* [Mockito 1.9.5](http://code.google.com/p/mockito/)
+* [Robolectric 2.2](http://robolectric.org/)
+* [FEST Android 1.0.7](http://square.github.io/fest-android/)
+
+The test project is based on **Robolectric** so it can run without emulator.
 
 ## License
 
