@@ -138,7 +138,7 @@ LibraryGenerator.prototype.mockito = function mockito() {
   this.fetch('http://repo1.maven.org/maven2/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5-sources.jar', this.projectName+'Test/libs-src', function (err) {
     cbsrc(err);
   });
-  this.write('libs/mockito-all-1.9.5.jar.properties', 'src=../libs-src/mockito-all-1.9.5-sources.jar');
+  this.write(this.projectName+'Test/libs/mockito-all-1.9.5.jar.properties', 'src=../libs-src/mockito-all-1.9.5-sources.jar');
 }
 
 LibraryGenerator.prototype.robolectric = function robolectric() {
@@ -150,7 +150,7 @@ LibraryGenerator.prototype.robolectric = function robolectric() {
   this.fetch('http://repo1.maven.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2-sources.jar', this.projectName+'Test/libs-src', function (err) {
     cbsrc(err);
   });
-  this.write('libs/robolectric-2.2.jar.properties', 'src=../libs-src/robolectric-2.2-sources.jar');
+  this.write(this.projectName+'Test/libs/robolectric-2.2-jar-with-dependencies.properties', 'src=../libs-src/robolectric-2.2-sources.jar');
 }
 
 LibraryGenerator.prototype.festandroid = function festandroid() {
@@ -162,7 +162,7 @@ LibraryGenerator.prototype.festandroid = function festandroid() {
   this.fetch('http://repo1.maven.org/maven2/com/squareup/fest-android/1.0.7/fest-android-1.0.7-sources.jar', this.projectName+'Test/libs-src', function (err) {
     cbsrc(err);
   });
-  this.write('libs/fest-android-1.0.7.jar.properties', 'src=../libs-src/fest-android-1.0.7-sources.jar');
+  this.write(this.projectName+'Test/libs/fest-android-1.0.7.jar.properties', 'src=../libs-src/fest-android-1.0.7-sources.jar');
 }
 
 LibraryGenerator.prototype.gitfiles = function gitfiles() {
