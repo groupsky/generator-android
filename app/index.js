@@ -24,6 +24,11 @@ var androidSDKversions = [
 'API 19: Android 4.4.2 (KitKat'].map(function(name, value) {
   return {name: name, value: value};
 });
+var libs = [
+'Mechanoid',
+'Universal-Image-Loader'].map(function(name, value) {
+  return {name: name, value: value};
+});
 
 
 var AndroidGenerator = module.exports = function AndroidGenerator(args, options, config) {
@@ -61,6 +66,13 @@ AndroidGenerator.prototype.askFor = function askFor() {
     type: 'list',
     choices: androidSDKversions,
     default: 9
+  },
+  {
+    name: 'libsToInclude',
+    message: 'Which libraries you want to include?',
+    type: 'checkbox',
+    choices: libs,
+    default: ['Mechanoid',1]
   }];
 
   this.prompt(prompts, function (props) {
@@ -70,6 +82,7 @@ AndroidGenerator.prototype.askFor = function askFor() {
     this.packagePath = props.packageName.replace(/\./g, '/');
     this.className = this._.classify(this._.slugify(this._.humanize(props.applicationName.replace(/ /g, ''))));
     this.projectName = this._.camelize(this.className);
+    this.libsToInclude = props.libsToInclude;
 
     cb();
   }.bind(this));
@@ -102,31 +115,37 @@ AndroidGenerator.prototype.androidsupportv4 = function androidsupportv4() {
 }
 
 AndroidGenerator.prototype.universalimageloader = function universalimageloader() {
-  var cblib = this.async();
-  this.fetch('https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/downloads/universal-image-loader-1.9.1.jar', 'libs', function (err) {
-    cblib(err);
-  });
-  var cbsrc = this.async();
-  this.fetch('https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/downloads/universal-image-loader-1.9.1-sources.jar', 'libs-src', function (err) {
-    cbsrc(err);
-  });
-  this.write('libs/universal-image-loader-1.9.1.jar.properties', 'src=../libs-src/universal-image-loader-1.9.1-sources.jar');
+  if(this.libsToInclude.indexOf(1) != -1) {
+    var cblib = this.async();
+    this.fetch('https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/downloads/universal-image-loader-1.9.1.jar', 'libs', function (err) {
+      cblib(err);
+    });
+    var cbsrc = this.async();
+    this.fetch('https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/downloads/universal-image-loader-1.9.1-sources.jar', 'libs-src', function (err) {
+      cbsrc(err);
+    });
+    this.write('libs/universal-image-loader-1.9.1.jar.properties', 'src=../libs-src/universal-image-loader-1.9.1-sources.jar');
+  } 
 }
 
 AndroidGenerator.prototype.mechanoid = function mechanoid() {
-  var cblib = this.async();
-  this.fetch('http://www.robotoworks.com/mechanoid/updates/snapshot/mechanoid.jar', 'libs', function(err){
-    cblib(err);
-  });
-  var cbsrc = this.async();
-  this.fetch('http://www.robotoworks.com/mechanoid/updates/snapshot/mechanoid-sources.jar', 'libs-src', function(err){
-    cbsrc(err);
-  });
-  this.write('libs/mechanoid.jar.properties', 'src=../libs-src/mechanoid-sources.jar');
+  if(this.libsToInclude.indexOf('Mechanoid') != -1) {
+    var cblib = this.async();
+    this.fetch('http://www.robotoworks.com/mechanoid/updates/snapshot/mechanoid.jar', 'libs', function(err){
+      cblib(err);
+    });
+    var cbsrc = this.async();
+    this.fetch('http://www.robotoworks.com/mechanoid/updates/snapshot/mechanoid-sources.jar', 'libs-src', function(err){
+      cbsrc(err);
+    });
+    this.write('libs/mechanoid.jar.properties', 'src=../libs-src/mechanoid-sources.jar');
+  }
 }
 
 AndroidGenerator.prototype.mechdb = function mechdb() {
-  this.template('_DB.mechdb', this.className+"DB.mechdb");
+  if(this.libsToInclude.indexOf('Mechanoid') != -1) {
+    this.template('_DB.mechdb', this.className+"DB.mechdb");
+  }
 }
 
 AndroidGenerator.prototype.antprojectfiles = function antprojectfiles() {
