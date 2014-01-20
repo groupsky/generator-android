@@ -56,6 +56,8 @@ The following libraries are included by default:
 * [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * and more (just ask [for](https://github.com/groupsky/generator-android/issues/new))
 
+By default an optimization proguard configuration is enabled with rules for common libraries and issues.
+
 **Note: this will change in future version to create several subdirectories where the Android application and test project will be created**
 
 ### Library
@@ -73,6 +75,8 @@ There are no runtime libraries included, only test libraries:
 * [FEST Android 1.0.7](http://square.github.io/fest-android/)
 
 The test project is based on **Robolectric** so it can run without emulator.
+
+By default an optimization proguard configuration is enabled with rules for common libraries and issues.
 
 ## License
 
