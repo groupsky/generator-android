@@ -25,11 +25,9 @@ var androidSDKversions = [
   return {name: name, value: value};
 });
 var libs = [
-'Mechanoid',
-'Universal-Image-Loader'].map(function(name, value) {
-  return {name: name, value: value};
-});
-
+  {name: 'Mechanoid', value: 'mechanoid', checked: true},
+  {name: 'Universal-Image-Loader', value: "imageLoader", checked: true}
+];
 
 var AndroidGenerator = module.exports = function AndroidGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -71,8 +69,7 @@ AndroidGenerator.prototype.askFor = function askFor() {
     name: 'libsToInclude',
     message: 'Which libraries you want to include?',
     type: 'checkbox',
-    choices: libs,
-    default: ['Mechanoid',1]
+    choices: libs
   }];
 
   this.prompt(prompts, function (props) {
@@ -82,7 +79,11 @@ AndroidGenerator.prototype.askFor = function askFor() {
     this.packagePath = props.packageName.replace(/\./g, '/');
     this.className = this._.classify(this._.slugify(this._.humanize(props.applicationName.replace(/ /g, ''))));
     this.projectName = this._.camelize(this.className);
-    this.libsToInclude = props.libsToInclude;
+    var libsToInclude = {}
+    libs.forEach(function(lib) {
+      libsToInclude[lib.value] = props.libsToInclude.indexOf(lib.value) != -1;
+    });
+    this.libsToInclude = libsToInclude;
 
     cb();
   }.bind(this));
@@ -115,7 +116,7 @@ AndroidGenerator.prototype.androidsupportv4 = function androidsupportv4() {
 }
 
 AndroidGenerator.prototype.universalimageloader = function universalimageloader() {
-  if(this.libsToInclude.indexOf(1) != -1) {
+  if(this.libsToInclude.imageLoader) {
     var cblib = this.async();
     this.fetch('https://github.com/nostra13/Android-Universal-Image-Loader/raw/master/downloads/universal-image-loader-1.9.1.jar', 'libs', function (err) {
       cblib(err);
@@ -129,7 +130,7 @@ AndroidGenerator.prototype.universalimageloader = function universalimageloader(
 }
 
 AndroidGenerator.prototype.mechanoid = function mechanoid() {
-  if(this.libsToInclude.indexOf('Mechanoid') != -1) {
+  if(this.libsToInclude.mechanoid) {
     var cblib = this.async();
     this.fetch('http://www.robotoworks.com/mechanoid/updates/snapshot/mechanoid.jar', 'libs', function(err){
       cblib(err);
@@ -143,7 +144,7 @@ AndroidGenerator.prototype.mechanoid = function mechanoid() {
 }
 
 AndroidGenerator.prototype.mechdb = function mechdb() {
-  if(this.libsToInclude.indexOf('Mechanoid') != -1) {
+  if(this.libsToInclude.mechanoid) {
     this.template('_DB.mechdb', this.className+"DB.mechdb");
   }
 }
