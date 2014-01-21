@@ -32,14 +32,10 @@ describe('android generator', function () {
             '.classpath',
             '.project',
             'AndroidManifest.xml',
-            'UglyDollDB.mechdb',
             'build.xml',
             'project.properties',
             'proguard-project.txt',
             'src/doll/ugly/UglyDollApplication.java',
-            'libs/android-support-v4.jar',
-            'libs/universal-image-loader-1.9.1.jar',
-            'libs/mechanoid.jar',
             'custom_rules.xml'            
         ];
 
@@ -47,7 +43,7 @@ describe('android generator', function () {
             'applicationName': "Ugly Doll",
             'packageName': "doll.ugly",
             'minimumApiLevel': 8,
-            'libsToInclude': ['mechanoid', 'imageLoader']
+            'libsToInclude': []
         });
         this.app.options['skip-install'] = true;
         this.app.run({}, function () {
@@ -71,13 +67,12 @@ describe('android generator', function () {
         this.app.options['skip-install'] = true;
         this.app.run({}, function () {
             helpers.assertFiles(expected);
-            helpers.assertFileContent('src/doll/ugly/UglyDollApplication.java', /import com\.robotoworks\.mechanoid\.Mechanoid;/);
-            helpers.assertFileContent('src/doll/ugly/UglyDollApplication.java', /Mechanoid\.init\(this\);/);
+            helpers.assertFileContent('src/doll/ugly/UglyDollApplication.java', /mechanoid/i);
             done();
         });
     });
 
-    it('not includes mechanoid when not selected', function (done) {
+    it('excludes mechanoid when not selected', function (done) {
         var unexpected = [
             'UglyDollDB.mechdb',
             'libs/mechanoid.jar'          
@@ -92,8 +87,7 @@ describe('android generator', function () {
         this.app.options['skip-install'] = true;
         this.app.run({}, function () {
             helpers.assertNoFile(unexpected);
-            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /import com\.robotoworks\.mechanoid\.Mechanoid;/);
-            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /Mechanoid\.init\(this\);/);
+            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /mechanoid/i);
             done();
         });
     });
@@ -112,11 +106,12 @@ describe('android generator', function () {
         this.app.options['skip-install'] = true;
         this.app.run({}, function () {
             helpers.assertFiles(expected);
+            helpers.assertFileContent('src/doll/ugly/UglyDollApplication.java', /universalimageloader/i);
             done();
         });
     });
 
-    it('not includes Universal-Image-Loader when not selected', function (done) {
+    it('excludes Universal-Image-Loader when not selected', function (done) {
         var unexpected = [
             'libs/universal-image-loader-1.9.1.jar'
         ];
@@ -130,10 +125,7 @@ describe('android generator', function () {
         this.app.options['skip-install'] = true;
         this.app.run({}, function () {
             helpers.assertNoFile(unexpected);
-            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /import com\.nostra13\.universalimageloader\.core.DisplayImageOptions;/);
-            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /import com\.nostra13\.universalimageloader\.core.ImageLoader;/);
-            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /import com\.nostra13\.universalimageloader\.core.ImageLoaderConfiguration;/);
-            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /ImageLoader\.getInstance\(\)\.init/);
+            helpers.assertNoFileContent('src/doll/ugly/UglyDollApplication.java', /universalimageloader/i);
             done();
         });
     });
