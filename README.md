@@ -1,3 +1,5 @@
+THIS REPO IS NOT MAINTAINED ANY MORE. USE AT YOUR OWN RISK!
+
 # generator-android 
 
 [Yeoman](http://yeoman.io) generator for Android.
